@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>PeopleOS — HR Management</title>
+
+  <!-- ── External Libraries ── -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- ── App Stylesheet ── -->
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<div class="phone-shell">
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN 1 — DASHBOARD
+  ══════════════════════════════════════════════ -->
+  <div class="screen active" id="screen-home">
+    <div class="topbar">
+      <div class="topbar-logo">People<span>OS</span></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="topbar-bell"><i class="fas fa-bell"></i><div class="notif-dot"></div></div>
+        <div class="topbar-avatar" onclick="navigate('profile')">AR</div>
+      </div>
+    </div>
+
+    <div class="scroll-area">
+      <!-- Hero Card -->
+      <div class="card-glass hero-card">
+        <div class="hero-greeting">Good Morning, Ankit Raj 👋</div>
+        <div class="hero-sub">Friday, April 4 · Engineering Dept.</div>
+        <div style="margin-top:14px;display:flex;gap:10px;">
+          <span class="chip chip-green"><i class="fas fa-circle" style="font-size:8px;"></i>Checked In 09:12</span>
+          <span class="chip">🔥 14-day streak</span>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="sec-label">This Month</div>
+      <div class="stat-row">
+        <div class="stat-box"><div class="num stat-green">22</div><div class="lbl">Present</div></div>
+        <div class="stat-box"><div class="num stat-orange">2</div><div class="lbl">Late</div></div>
+        <div class="stat-box"><div class="num stat-accent">87%</div><div class="lbl">Attend.</div></div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="sec-label">Quick Actions</div>
+      <div class="quick-grid">
+        <div class="card-glass card-sm action-tile" onclick="navigate('attendance')">
+          <i class="fas fa-fingerprint action-icon" style="color:var(--accent);"></i>
+          <div class="action-title">Attendance</div>
+          <div class="action-sub">Mark &amp; view log</div>
+        </div>
+        <div class="card-glass card-sm action-tile" onclick="navigate('feedback')">
+          <i class="fas fa-comment-dots action-icon" style="color:var(--accent2);"></i>
+          <div class="action-title">Feedback</div>
+          <div class="action-sub">Give &amp; receive</div>
+        </div>
+        <div class="card-glass card-sm action-tile" onclick="navigate('training')">
+          <i class="fas fa-graduation-cap action-icon" style="color:var(--orange);"></i>
+          <div class="action-title">Training</div>
+          <div class="action-sub">3 modules due</div>
+        </div>
+        <div class="card-glass card-sm action-tile" onclick="navigate('profile')">
+          <i class="fas fa-user-circle action-icon" style="color:var(--green);"></i>
+          <div class="action-title">Profile</div>
+          <div class="action-sub">Settings &amp; info</div>
+        </div>
+      </div>
+
+      <!-- Pending Training -->
+      <div class="sec-label">Pending Training</div>
+      <div class="card-glass card-sm training-preview-row">
+        <div class="training-preview-icon" style="background:rgba(244,163,74,0.15);">📊</div>
+        <div style="flex:1">
+          <div class="training-preview-title">Data Privacy &amp; Compliance</div>
+          <div class="training-preview-meta">Due: Apr 10 · 45 min</div>
+          <div class="progress-bar-wrap"><div class="progress-fill" style="width:40%;"></div></div>
+        </div>
+      </div>
+      <div class="card-glass card-sm training-preview-row">
+        <div class="training-preview-icon" style="background:rgba(79,142,247,0.15);">🛡️</div>
+        <div style="flex:1">
+          <div class="training-preview-title">Cybersecurity Essentials</div>
+          <div class="training-preview-meta">Due: Apr 15 · 1 hr</div>
+          <div class="progress-bar-wrap"><div class="progress-fill" style="width:0%;"></div></div>
+        </div>
+      </div>
+
+      <!-- Recent Feedback -->
+      <div class="sec-label">Recent Feedback</div>
+      <div class="card-glass">
+        <div class="feedback-item">
+          <div class="fb-avatar" style="background:rgba(79,142,247,0.15);color:var(--accent);">SM</div>
+          <div>
+            <div class="fb-sender">Sneha Malhotra <span class="fb-role">· Manager</span></div>
+            <div class="fb-text-preview">"Great work on the Q1 dashboard. Your attention to detail is impressive!"</div>
+            <div class="fb-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN 2 — ATTENDANCE
+  ══════════════════════════════════════════════ -->
+  <div class="screen" id="screen-attendance">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <i class="fas fa-arrow-left back-btn" onclick="navigate('home')"></i>
+        <div class="topbar-logo">Attendance</div>
+      </div>
+      <div class="chip">April 2025</div>
+    </div>
+
+    <div class="scroll-area">
+      <!-- Clock Card -->
+      <div class="card-glass" style="text-align:center;padding:28px 20px 20px;">
+        <div class="clock-ring">
+          <div class="clock-inner">
+            <div class="clock-time" id="live-time">09:12</div>
+            <div class="clock-label" id="live-ampm">AM</div>
+          </div>
+        </div>
+        <div class="clock-status-badge" id="status-badge">
+          <div class="dot"></div>
+          <span id="status-text">Checked In</span>
+        </div>
+        <div class="clock-date">Today: Friday, April 4, 2025</div>
+        <button class="btn-checkin checked-in" id="checkin-btn" onclick="toggleCheckIn()">
+          <i class="fas fa-sign-out-alt"></i>&nbsp; Check Out
+        </button>
+      </div>
+
+      <!-- Weekly Summary -->
+      <div class="sec-label">This Week</div>
+      <div class="card-glass" style="padding:16px 20px;">
+        <div class="week-hours-row">
+          <span style="font-size:13px;color:var(--muted);">Hours Worked</span>
+          <span class="week-hours-val">36.5 / 40h</span>
+        </div>
+        <div class="progress-bar-wrap"><div class="progress-fill" style="width:91%;"></div></div>
+        <div class="week-days-row">
+          <div class="week-day"><div class="day-icon day-ok"><i class="fas fa-check"></i></div><div class="day-lbl">Mon</div></div>
+          <div class="week-day"><div class="day-icon day-ok"><i class="fas fa-check"></i></div><div class="day-lbl">Tue</div></div>
+          <div class="week-day"><div class="day-icon day-late"><i class="fas fa-clock"></i></div><div class="day-lbl">Wed</div></div>
+          <div class="week-day"><div class="day-icon day-ok"><i class="fas fa-check"></i></div><div class="day-lbl">Thu</div></div>
+          <div class="week-day"><div class="day-icon day-current"><i class="fas fa-dot-circle"></i></div><div class="day-lbl">Fri</div></div>
+        </div>
+      </div>
+
+      <!-- History -->
+      <div class="sec-label">History</div>
+      <div class="card-glass">
+        <div class="att-row"><div><div class="att-date">Thu, Apr 3</div><div class="att-time">In 09:05 · Out 06:10 PM</div></div><span class="badge-status badge-present">Present</span></div>
+        <div class="att-row"><div><div class="att-date">Wed, Apr 2</div><div class="att-time">In 09:48 · Out 06:30 PM</div></div><span class="badge-status badge-late">Late</span></div>
+        <div class="att-row"><div><div class="att-date">Tue, Apr 1</div><div class="att-time">In 09:02 · Out 06:00 PM</div></div><span class="badge-status badge-present">Present</span></div>
+        <div class="att-row"><div><div class="att-date">Mon, Mar 31</div><div class="att-time">In 09:15 · Out 06:20 PM</div></div><span class="badge-status badge-present">Present</span></div>
+        <div class="att-row"><div><div class="att-date">Fri, Mar 28</div><div class="att-time">— Half Day Leave</div></div><span class="badge-status badge-half">Half Day</span></div>
+        <div class="att-row"><div><div class="att-date">Thu, Mar 27</div><div class="att-time">— Medical Leave</div></div><span class="badge-status badge-absent">Absent</span></div>
+      </div>
+
+      <!-- Leave Balance -->
+      <div class="sec-label">Leave Balance</div>
+      <div class="leave-grid">
+        <div class="card-glass card-sm" style="text-align:center;"><div class="leave-num stat-accent">12</div><div style="font-size:12px;color:var(--muted);">Casual Leaves</div></div>
+        <div class="card-glass card-sm" style="text-align:center;"><div class="leave-num stat-green">6</div><div style="font-size:12px;color:var(--muted);">Sick Leaves</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN 3 — FEEDBACK
+  ══════════════════════════════════════════════ -->
+  <div class="screen" id="screen-feedback">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <i class="fas fa-arrow-left back-btn" onclick="navigate('home')"></i>
+        <div class="topbar-logo">Feedback</div>
+      </div>
+    </div>
+
+    <div class="scroll-area">
+      <div class="tab-pills">
+        <div class="tab-pill active" onclick="switchFbTab('give',this)">Give Feedback</div>
+        <div class="tab-pill" onclick="switchFbTab('received',this)">Received</div>
+        <div class="tab-pill" onclick="switchFbTab('team',this)">Team Pulse</div>
+      </div>
+
+      <!-- TAB: Give Feedback -->
+      <div class="fb-tab-content active" id="fb-give">
+        <div class="card-glass">
+          <div class="sec-label" style="margin-bottom:12px;">Select Colleague</div>
+          <div class="colleague-row">
+            <div class="colleague-chip" onclick="selectColleague(this,'Sneha M.')">
+              <div class="fb-avatar" style="background:rgba(79,142,247,0.15);color:var(--accent);">SM</div>
+              <div class="colleague-name">Sneha M.</div>
+            </div>
+            <div class="colleague-chip" onclick="selectColleague(this,'Rohan K.')">
+              <div class="fb-avatar" style="background:rgba(124,92,252,0.15);color:var(--accent2);">RK</div>
+              <div class="colleague-name">Rohan K.</div>
+            </div>
+            <div class="colleague-chip" onclick="selectColleague(this,'Priya D.')">
+              <div class="fb-avatar" style="background:rgba(46,212,122,0.15);color:var(--green);">PD</div>
+              <div class="colleague-name">Priya D.</div>
+            </div>
+            <div class="colleague-chip" onclick="selectColleague(this,'Vikram S.')">
+              <div class="fb-avatar" style="background:rgba(244,163,74,0.15);color:var(--orange);">VS</div>
+              <div class="colleague-name">Vikram S.</div>
+            </div>
+          </div>
+
+          <div class="sec-label" style="margin-bottom:8px;">Rating</div>
+          <div class="star-row" id="stars">
+            <span class="star" onclick="rateStar(1)">★</span>
+            <span class="star" onclick="rateStar(2)">★</span>
+            <span class="star" onclick="rateStar(3)">★</span>
+            <span class="star" onclick="rateStar(4)">★</span>
+            <span class="star" onclick="rateStar(5)">★</span>
+          </div>
+
+          <div class="sec-label" style="margin-bottom:8px;">Your Feedback</div>
+          <textarea class="feedback-textarea" id="fb-text" rows="4" placeholder="Share specific, constructive feedback..."></textarea>
+
+          <div class="ai-actions-row">
+            <div class="ai-chip" onclick="aiImprove()"><i class="fas fa-magic"></i> AI Improve</div>
+            <div class="ai-chip" onclick="aiSummarise()"><i class="fas fa-robot"></i> AI Summarise</div>
+          </div>
+
+          <div class="ai-response" id="ai-resp">
+            <div class="ai-label">✦ AI SUGGESTION</div>
+            <div id="ai-resp-text">Loading...</div>
+          </div>
+
+          <button class="btn-primary-custom" style="width:100%;margin-top:14px;justify-content:center;" onclick="submitFeedback()">
+            <i class="fas fa-paper-plane"></i> Submit Feedback
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB: Received -->
+      <div class="fb-tab-content" id="fb-received">
+        <div class="card-glass" style="margin-bottom:10px;">
+          <div class="feedback-item">
+            <div class="fb-avatar" style="background:rgba(79,142,247,0.15);color:var(--accent);">SM</div>
+            <div style="flex:1">
+              <div class="fb-sender">Sneha Malhotra <span class="fb-role fb-ago">· 2 days ago</span></div>
+              <div class="fb-text-preview">"Great work on the Q1 dashboard. Your attention to detail is impressive and the visualizations were clean."</div>
+              <div class="fb-stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-glass" style="margin-bottom:10px;">
+          <div class="feedback-item">
+            <div class="fb-avatar" style="background:rgba(244,163,74,0.15);color:var(--orange);">VS</div>
+            <div style="flex:1">
+              <div class="fb-sender">Vikram Singh <span class="fb-role fb-ago">· 5 days ago</span></div>
+              <div class="fb-text-preview">"Good communication skills but could be more proactive in team discussions. Overall solid performance."</div>
+              <div class="fb-stars" style="color:var(--orange);">★★★★☆</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-glass ai-insights-card">
+          <div class="ai-label">✦ AI INSIGHTS</div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;">Your average rating this month is <strong>4.5/5</strong>. Peers highlight your technical skills and attention to detail. Growth area: proactive communication in team settings.</div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="chip chip-green">🎯 Technical Skills</span>
+            <span class="chip chip-accent">📊 Detail-Oriented</span>
+            <span class="chip chip-orange">💬 Communication</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Team Pulse -->
+      <div class="fb-tab-content" id="fb-team">
+        <div class="card-glass" style="text-align:center;padding:24px;">
+          <div class="pulse-label">TEAM SENTIMENT</div>
+          <div class="pulse-num">78%</div>
+          <div style="font-size:13px;color:var(--muted);">Team Happiness Index</div>
+        </div>
+        <div class="card-glass">
+          <div class="pulse-metric"><div class="pulse-metric-row"><span>Work-Life Balance</span><span class="pulse-val-green">82%</span></div><div class="progress-bar-wrap"><div class="progress-fill" style="width:82%;background:linear-gradient(90deg,var(--green),var(--accent));"></div></div></div>
+          <div class="pulse-metric"><div class="pulse-metric-row"><span>Management Support</span><span class="pulse-val-accent">74%</span></div><div class="progress-bar-wrap"><div class="progress-fill" style="width:74%;"></div></div></div>
+          <div class="pulse-metric" style="margin-bottom:0;"><div class="pulse-metric-row"><span>Career Growth</span><span class="pulse-val-orange">68%</span></div><div class="progress-bar-wrap"><div class="progress-fill" style="width:68%;background:linear-gradient(90deg,var(--orange),#f4c74a);"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN 4 — TRAINING
+  ══════════════════════════════════════════════ -->
+  <div class="screen" id="screen-training">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <i class="fas fa-arrow-left back-btn" onclick="navigate('home')"></i>
+        <div class="topbar-logo">Training</div>
+      </div>
+      <div class="chip"><i class="fas fa-trophy" style="color:var(--orange);"></i> 340 XP</div>
+    </div>
+
+    <div class="scroll-area">
+      <!-- Overall Progress -->
+      <div class="card-glass training-hero-card">
+        <div class="training-hero-row">
+          <div>
+            <div style="font-family:var(--font-head);font-size:16px;font-weight:800;">Learning Progress</div>
+            <div style="font-size:13px;color:var(--muted);">3 of 8 modules complete</div>
+          </div>
+          <div class="training-pct">38%</div>
+        </div>
+        <div class="progress-bar-wrap" style="height:8px;"><div class="progress-fill" style="width:38%;"></div></div>
+      </div>
+
+      <div class="tab-pills">
+        <div class="tab-pill active" onclick="switchTrainTab('all',this)">All</div>
+        <div class="tab-pill" onclick="switchTrainTab('inprogress',this)">In Progress</div>
+        <div class="tab-pill" onclick="switchTrainTab('completed',this)">Completed</div>
+      </div>
+
+      <!-- Module Cards -->
+      <div class="module-card" onclick="openQuiz('privacy')">
+        <div class="module-header"><div class="module-icon" style="background:rgba(244,163,74,0.15);">📊</div><span class="module-badge badge-inprog">In Progress</span></div>
+        <div class="module-title">Data Privacy &amp; Compliance</div>
+        <div class="module-meta"><span><i class="fas fa-clock"></i> 45 min</span><span><i class="fas fa-star"></i> +80 XP</span><span>Due Apr 10</span></div>
+        <div class="progress-bar-wrap"><div class="progress-fill" style="width:40%;"></div></div>
+      </div>
+
+      <div class="module-card" onclick="openQuiz('cyber')">
+        <div class="module-header"><div class="module-icon" style="background:rgba(79,142,247,0.15);">🛡️</div><span class="module-badge badge-new">New</span></div>
+        <div class="module-title">Cybersecurity Essentials</div>
+        <div class="module-meta"><span><i class="fas fa-clock"></i> 1 hr</span><span><i class="fas fa-star"></i> +100 XP</span><span>Due Apr 15</span></div>
+        <div class="progress-bar-wrap"><div class="progress-fill" style="width:0%;"></div></div>
+      </div>
+
+      <div class="module-card" onclick="openQuiz('leadership')">
+        <div class="module-header"><div class="module-icon" style="background:rgba(124,92,252,0.15);">🚀</div><span class="module-badge badge-new">New</span></div>
+        <div class="module-title">Leadership &amp; Communication</div>
+        <div class="module-meta"><span><i class="fas fa-clock"></i> 1.5 hr</span><span><i class="fas fa-star"></i> +120 XP</span><span>Due Apr 30</span></div>
+        <div class="progress-bar-wrap"><div class="progress-fill" style="width:0%;"></div></div>
+      </div>
+
+      <div class="module-card module-done">
+        <div class="module-header"><div class="module-icon" style="background:rgba(46,212,122,0.15);">🤝</div><span class="module-badge badge-done">✓ Done</span></div>
+        <div class="module-title">Workplace Diversity &amp; Inclusion</div>
+        <div class="module-meta"><span><i class="fas fa-clock"></i> 30 min</span><span style="color:var(--green);"><i class="fas fa-star"></i> +60 XP earned</span></div>
+        <div class="progress-bar-wrap"><div class="progress-fill" style="width:100%;background:var(--green);"></div></div>
+      </div>
+
+      <div class="module-card module-done">
+        <div class="module-header"><div class="module-icon" style="background:rgba(244,90,90,0.15);">💬</div><span class="module-badge badge-done">✓ Done</span></div>
+        <div class="module-title">Effective Team Collaboration</div>
+        <div class="module-meta"><span><i class="fas fa-clock"></i> 45 min</span><span style="color:var(--green);"><i class="fas fa-star"></i> +80 XP earned</span></div>
+        <div class="progress-bar-wrap"><div class="progress-fill" style="width:100%;background:var(--green);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN 5 — PROFILE
+  ══════════════════════════════════════════════ -->
+  <div class="screen" id="screen-profile">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <i class="fas fa-arrow-left back-btn" onclick="navigate('home')"></i>
+        <div class="topbar-logo">Profile</div>
+      </div>
+    </div>
+
+    <div class="scroll-area">
+      <div class="profile-hero">
+        <div class="profile-av-lg">AJ</div>
+        <div>
+          <div class="profile-name">Arjun Joshi</div>
+          <div class="profile-role">Senior Software Engineer</div>
+          <div class="profile-dept">Engineering · Bengaluru</div>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-box"><div class="num stat-accent">4.5</div><div class="lbl">Rating</div></div>
+        <div class="stat-box"><div class="num stat-orange">340</div><div class="lbl">XP Points</div></div>
+        <div class="stat-box"><div class="num stat-green">14</div><div class="lbl">Day Streak</div></div>
+      </div>
+
+      <div class="sec-label">Info</div>
+      <div class="card-glass">
+        <div class="att-row"><span class="info-label"><i class="fas fa-id-badge"></i> Employee ID</span><span class="info-val">EMP-2241</span></div>
+        <div class="att-row"><span class="info-label"><i class="fas fa-envelope"></i> Email</span><span class="info-val">arjun@company.io</span></div>
+        <div class="att-row"><span class="info-label"><i class="fas fa-calendar-alt"></i> Joined</span><span class="info-val">Mar 2022</span></div>
+        <div class="att-row"><span class="info-label"><i class="fas fa-briefcase"></i> Reports To</span><span class="info-val">Sneha Malhotra</span></div>
+      </div>
+
+      <div class="sec-label">Notifications</div>
+      <div class="card-glass">
+        <div class="pref-row"><span class="pref-label"><i class="fas fa-bell"></i>Attendance Reminders</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="pref-row"><span class="pref-label"><i class="fas fa-graduation-cap"></i>Training Alerts</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="pref-row"><span class="pref-label"><i class="fas fa-comment-dots"></i>Feedback Received</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="pref-row"><span class="pref-label"><i class="fas fa-moon"></i>Dark Mode</span><div class="toggle on"></div></div>
+      </div>
+
+      <button class="btn-secondary-custom" style="width:100%;margin-bottom:20px;">
+        <i class="fas fa-sign-out-alt" style="color:var(--red);margin-right:8px;"></i>Sign Out
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       BOTTOM NAVIGATION
+  ══════════════════════════════════════════════ -->
+  <nav class="bottom-nav">
+    <div class="nav-item active" id="nav-home" onclick="navigate('home')">
+      <i class="fas fa-home"></i><span>Home</span>
+    </div>
+    <div class="nav-item" id="nav-attendance" onclick="navigate('attendance')">
+      <i class="fas fa-fingerprint"></i><span>Attend.</span>
+    </div>
+    <div class="nav-item" id="nav-feedback" onclick="navigate('feedback')">
+      <i class="fas fa-comment-dots"></i><span>Feedback</span>
+    </div>
+    <div class="nav-item" id="nav-training" onclick="navigate('training')">
+      <i class="fas fa-graduation-cap"></i><span>Training</span>
+    </div>
+    <div class="nav-item" id="nav-profile" onclick="navigate('profile')">
+      <i class="fas fa-user-circle"></i><span>Profile</span>
+    </div>
+  </nav>
+
+</div><!-- /phone-shell -->
+
+<!-- ══════════════════════════════════════════════
+     QUIZ MODAL
+══════════════════════════════════════════════ -->
+<div class="quiz-overlay" id="quiz-overlay" onclick="closeQuiz(event)">
+  <div class="quiz-sheet" onclick="event.stopPropagation()">
+    <div class="quiz-header">
+      <div class="quiz-header-label">KNOWLEDGE CHECK</div>
+      <i class="fas fa-times quiz-close-icon" onclick="closeQuiz()"></i>
+    </div>
+    <div class="quiz-q" id="quiz-question">Loading...</div>
+    <div id="quiz-options"></div>
+    <div id="quiz-result" style="display:none;" class="quiz-result-box"></div>
+    <div class="quiz-footer">
+      <button class="btn-primary-custom" style="flex:1;justify-content:center;" onclick="loadNextQuestion()">
+        <i class="fas fa-arrow-right"></i> Next
+      </button>
+      <button class="btn-secondary-custom" onclick="closeQuiz()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TOAST NOTIFICATION
+══════════════════════════════════════════════ -->
+<div id="toast"></div>
+
+<!-- ── Scripts ── -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
